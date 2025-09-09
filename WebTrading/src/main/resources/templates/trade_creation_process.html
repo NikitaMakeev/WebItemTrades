@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+</head>
+
+<style>
+    body {
+        background-color: black;
+    }
+
+    .back-button {
+        font-size: 30px;
+    }
+
+    .inventories-wrapper {
+        display: flex;
+        gap: 10%;
+        justify-content: center;
+    }
+
+    .trade-box-wrapper {
+        display: flex;
+        gap: 10%;
+        justify-content: center;
+    }
+
+    .back-button a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .trade-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .trade-box {
+        width: 40%;
+    }
+
+    .inventory-box {
+        width: 40%;
+    }
+
+    .offer-box,
+    .your-items,
+    .offer-box {
+        height: 388px;
+        padding: 2%;
+        display: flex;
+        gap: 2%;
+        box-shadow: 0 0 10px gray;
+        border-radius: 10px;
+    }
+
+    .payment-toggle {
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        color: white;
+        text-align: center;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+    .card {
+        position: relative; /* Needed for absolute positioning */
+        width: 221.2px;
+        height: 306.52px;
+        box-shadow: 0 0 5px darkgray;
+        border-radius: 15px;
+    }
+    .card-content {
+       padding: 20px;
+       position: relative;
+    }
+
+    .card-content p {
+        color: white;
+
+    }
+
+    .card-content img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .create-trade {
+        margin-top: 5%;
+        text-align: center;
+        width: 50%;
+        margin: auto;
+
+
+    }
+
+    .create-trade button {
+        width: 35%;
+        font-size: 30px;
+        background-color: rgb(100, 100, 100);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+
+    .create-trade button:hover {
+        background-color: rgb(121, 121, 121);
+    }
+
+    .add-button {
+        position: absolute;
+        bottom: 10;
+        background-color: rgb(0, 168, 0);
+        border: none;
+        padding: 5px 10px;
+        width: 80%;
+        font-size: 16px;
+        color: white;
+        border-radius: 10px;
+        transition: 0.2s ease-in-out;
+    }
+
+    .add-button:hover {
+        background-color: rgb(2, 216, 2);
+        cursor: pointer;
+        transform: scale(0.99);
+    }
+
+    .back {
+            text-decoration: none;
+            font-size: 2em;
+
+
+        }
+
+        .back a {
+            color: white;
+            transition: 0.1s ease-in-out;
+            text-decoration: none;
+        }
+
+        .back a:hover {
+            text-shadow: 0 0 10px white;
+            text-decoration: none;
+        }
+
+
+</style>
+<body>
+
+
+<div class="back">
+    <a href="/mainpage">Назад</a>
+</div>
+
+<div class="create-trade">
+    <form th:action="@{/create_trade_final}" method="post">
+        <input type="hidden" name="receiverId" th:value="${receiverId}" />
+        <input type="hidden" name="receiverTradeItems" id="receiverTradeItemsInput" />
+        <input type="hidden" name="senderTradeItems" id="senderTradeItemsInput" />
+        <button type="submit" class="button">Предложить обмен</button>
+    </form>
+
+</div>
+
+
+<div class="trade-box-wrapper">
+    <!-- sender's trade box -->
+    <div class="trade-box">
+        <h1>Предложить предмет</h1>
+        <div class="card-container offer-box" id="sender-trade-box">
+            <!-- Empty Content -->
+        </div>
+    </div>
+
+    <!-- receiver's trade box -->
+    <div class="trade-box">
+        <h1>Предложить предмет</h1>
+        <div class="card-container offer-box" id="receiver-trade-box">
+            <!-- Empty Content -->
+        </div>
+    </div>
+</div>
+
+
+
+<div class="inventories-wrapper">
+    <!-- sender's inventory box -->
+    <div class="inventory-box" id="sender-inventory-box">
+        <h1>Ваши предметы</h1>
+        <div class="card-container offer-box">
+            <div th:each="item : ${senderInventory.items}" class="card" data-item-id="${item.id}">
+                <div class="card-content">
+                    <img th:src="@{/images/{imageName}(imageName=${item.imageName})}" alt="Product Image"/>
+                    <p th:text="${item.name}"></p>
+                    <p th:text="${item.price}"></p>
+                    <input type="hidden" name="itemId" th:value="${item.id}" />
+                    <button class="add-button" data-owner="sender">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- receiver's inventory box -->
+    <div class="inventory-box" id="receiver-inventory-box">
+        <h1 th:text="${receiverUsername}">Receiver's items</h1>
+        <div class="card-container offer-box">
+            <div th:each="item : ${receiverInventory.items}" class="card" data-item-id="${item.id}">
+                <div class="card-content">
+                    <img th:src="@{/images/{imageName}(imageName=${item.imageName})}" alt="Product Image"/>
+                    <p th:text="${item.name}"></p>
+                    <p th:text="${item.price}"></p>
+                    <input type="hidden" name="itemId" th:value="${item.id}" />
+                    <button class="add-button" data-owner="receiver">Добавить</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var senderTradeItems = [];
+        var receiverTradeItems = [];
+        var combinedTradeItems = [];
+
+        function updateCombinedTradeItems() {
+            combinedTradeItems = senderTradeItems.concat(receiverTradeItems);
+        }
+
+        function updateHiddenInputFields() {
+            $('#senderTradeItemsInput').val(senderTradeItems.join(','));
+            $('#receiverTradeItemsInput').val(receiverTradeItems.join(','));
+        }
+
+        $(document).on('click', '.add-button', function() {
+            const card = $(this).closest('.card');
+            const owner = $(this).data('owner');
+            const tradeBoxId = owner === 'sender' ? '#sender-trade-box' : '#receiver-trade-box';
+            const inventoryBoxId = owner === 'sender' ? '#sender-inventory-box' : '#receiver-inventory-box';
+
+            var itemId = card.find('input[name="itemId"]').val();
+
+            if ($(this).text() === 'Добавить') {
+                $(tradeBoxId).append(card);
+                $(this).text('Убрать');
+
+                if (owner === 'sender') {
+                    senderTradeItems.push(itemId);
+                } else {
+                    receiverTradeItems.push(itemId);
+                }
+
+            } else {
+                $(inventoryBoxId).find('.card-container').append(card);
+                $(this).text('Добавить');
+
+                if (owner === 'sender') {
+                    senderTradeItems = senderTradeItems.filter(id => id !== itemId);
+                } else {
+                    receiverTradeItems = receiverTradeItems.filter(id => id !== itemId);
+                }
+            }
+
+            updateCombinedTradeItems();
+            updateHiddenInputFields();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

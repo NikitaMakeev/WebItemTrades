@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+            background-color: #36393F;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            width: 1920px;
+            position: relative;
+            height: 100vh;
+            margin: auto;
+        }
+
+        header {
+            background-color: #000000;
+            padding: 0.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            margin: auto;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        header button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            transform: scale(3);
+            cursor: pointer;
+
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+        }
+
+        .container {
+            width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #000000;
+        }
+
+        .logo {
+            font-size: 4em;
+            color: #fff;
+            border-radius: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .buttons {
+            display: flex;
+        }
+
+        .sign-in p,
+        .sign-up p {
+            display: inline-block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fffdfd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-left: 10px;
+            font-size: 25px;
+            border-radius: 10px;
+            transition: 0.1s ease;
+            cursor: default;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: 1px solid #1970f17a;
+            box-shadow: 0 0 10px #1970f17a;
+            text-shadow: 0 0 5px white;
+        }
+
+        .sign-in p:hover,
+        .sign-up p:hover {
+            background-color: #525252;
+        }
+
+        .header-box {
+            text-align: center;
+        }
+
+        .welcome {
+            text-align: left;
+            width: 95%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome span {
+            display: inline-block;
+            background: linear-gradient(90deg, white, white, rgb(0, 68, 255), white, rgb(0, 89, 255), white, white);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 3s infinite linear;
+            font-size: 2em;
+            font-weight: 900;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            height: 60vh;
+        }
+
+        .nav-button {
+            background-color: #272727;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            width: 43%;
+            border-radius: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-5px);
+            background-color: #555;
+        }
+
+        .nav-button h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .nav-button p {
+            margin-top: 10px;
+            font-size: 1em;
+        }
+	</style>
+</head>
+<body>
+<div class="wrapper">
+	<header>
+		<div class="container">
+			<div class="logo">Web trading</div>
+			<form th:action="@{/logout}" method="post">
+				<button type="submit" class="sign-in">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 12">
+						<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+						<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+					</svg>
+				</button>
+			</form>
+		</div>
+	</header>
+
+	<hr>
+
+	<div class="welcome">
+		<h1>Добро пожаловать!</h1>
+		<span>[[${#request.userPrincipal.principal.fullName}]]</span>
+	</div>
+
+	<div class="nav">
+		<a href="/create_product" class="nav-button">
+			<h2>Ваши предметы</h2>
+			<p>Создавайте и удаляйте свои предметы здесь!</p>
+		</a>
+		<a href="/create_trade" class="nav-button">
+			<h2>Отправить обмен</h2>
+			<p>Тут вы найдете множество пользователей с которыми можно обменятся</p>
+		</a>
+		<a href="/received_trades" class="nav-button">
+			<h2>Полученные обмены</h2>
+			<p>Посмотрите кто отправил вам обмен</p>
+		</a>
+		<a href="/sent_trades" class="nav-button">
+			<h2>Отправленные обмены</h2>
+			<p>Посмотрите кому вы отправляли обмен</p>
+		</a>
+	</div>
+
+	<hr>
+</div>
+</body>
+</html>

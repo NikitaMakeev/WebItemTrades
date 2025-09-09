@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.wrapper {
+            width: 1920px;
+            position: relative;
+            height: 100vh;
+            margin: auto;
+        }
+
+        header {
+            background-color: #000000;
+            padding: 0.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            margin: auto;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+        }
+
+        .container {
+            width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #000000;
+        }
+
+        .logo {
+            font-size: 4em;
+            color: #fff;
+            border-radius: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .buttons {
+            display: flex;
+        }
+
+        .sign-in p, .sign-up p {
+            display: inline-block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fffdfd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-left: 10px;
+            font-size: 25px;
+            border-radius: 10px;
+            transition: 0.1s ease;
+            cursor: default;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: 1px solid #1970f17a;
+            box-shadow: 0 0 10px #1970f17a;
+            text-shadow: 0 0 5px white;
+        }
+
+        .sign-in p:hover, .sign-up p:hover {
+            background-color: #525252;
+        }
+
+        main {
+            width: 100%;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            height: 83vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .best-text {
+            width: 100%;
+            font-weight: 600;
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: 3%;
+            font-size: 2em;
+
+
+        }
+
+        .best-text h1 {
+            width: 40%;
+            margin: auto;
+        }
+
+
+        .best-text p {
+            margin: 0;
+            color: rgb(172, 172, 172);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+
+
+        .description {
+            width: 100%;
+            float: left;
+        }
+
+        .about {
+            width: 49%;
+            float: left;
+            color: white;
+        }
+
+        .about p {
+            width: 60%;
+            margin: auto;
+            font-size: 1.5em;
+        }
+
+        .start-with-login {
+            width: 49%;
+            float: left;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+
+	</style>
+</head>
+<body>
+
+<div class="wrapper">
+	<header>
+		<div class="container">
+			<div class="logo">Web trading</div>
+			<div class="buttons">
+				<a th:href="@{/register}" class="sign-up"><p>Регистрация</p></a>
+				<a th:href="@{/login2}" class="sign-in"><p>Войти</p></a>
+			</div>
+		</div>
+	</header>
+
+	<hr>
+
+	<main>
+		<div class="best-text">
+			<h1>Web Trading</h1>
+			<p>сайт для обмена предметов</p>
+		</div>
+
+		<div class="description">
+			<div class="about">
+				<p>
+					Web Trading - это онлайн-платформа, где пользователи могут создавать, обменивать и продавать уникальные товары. Сайт разработан с использованием Spring Boot, что обеспечивает его высокую производительность, масштабируемость и безопасность.
+				</p>
+			</div>
+			<div class="start-with-login">
+				Начните с регистрации
+				<a th:href="@{/register}" class="sign-up"><p>Регистрация</p></a>
+			</div>
+		</div>
+	</main>
+
+	<hr>
+</div>
+</body>
+</html>

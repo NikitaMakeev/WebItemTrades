@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        .wrapper {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            margin: auto;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form button {
+            height: 4.3vh;
+            margin-top: 2%;
+            background-color: rgb(82, 82, 82);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            width: 50%;
+        }
+
+        .input {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .input input,
+        .file-upload input {
+            width: 50%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .file-upload {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-upload .file-input {
+            flex: 1;
+        }
+
+        .file-upload .file-select {
+            margin-left: 10px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 29%;
+            border: 1px solid white;
+            margin: auto;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.233);
+            margin: 2%;
+            text-align: left;
+            padding: 1%;
+        }
+
+
+        .card-content p,
+        .card-content img {
+            color: white;
+        }
+
+        .delete-button {
+            background-color: rgb(82, 82, 82);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            padding: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: rgba(255, 0, 0, 0.7);
+        }
+
+        .back {
+            text-decoration: none;
+            font-size: 2em;
+            padding-left: 10%;
+            margin: 20px 0;
+        }
+
+        .back a {
+            color: white;
+            transition: 0.1s ease-in-out;
+        }
+
+        .back a:hover {
+            text-shadow: 0 0 10px white;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        hr {
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="back">
+    <a href="/mainpage">Назад</a>
+</div>
+
+<div class="wrapper">
+    <div class="add-product-container">
+        <h1>Добавить продукт</h1>
+        <hr>
+        <form th:action="@{/process_create_product}" th:object="${item}" method="post" enctype="multipart/form-data">
+            <div class="input">
+                <input type="text" id="name" th:field="*{name}" placeholder="Product name" required/>
+            </div>
+            <div class="input">
+                <input type="text" id="price" th:field="*{price}" placeholder="Product price" required/>
+            </div>
+            <div class="file-upload">
+                <input type="file" id="imageFile" name="imageFile" class="file-input" required/>
+                <span class="file-select">Choose file</span>
+            </div>
+            <button type="submit">Create Product</button>
+        </form>
+        <hr>
+    </div>
+
+
+
+    <div class="card-container">
+        <div th:each="item : ${items}" class="card">
+            <div class="card-content">
+                <p><strong>Product Name:</strong> <span th:text="${item.name}"></span></p>
+                <p><strong>Price:</strong> <span th:text="${item.price}"></span>€</p>
+                <img th:src="@{/images/__${item.imageName}__}" alt="Product Image" style="width:100%;">
+                <form th:action="@{'/deleteItem/' + ${item.id}}" method="post" id="deleteForm">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

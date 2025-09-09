@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Received Trades</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .wrapper {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .back {
+            text-decoration: none;
+            font-size: 2em;
+            padding-left: 10%;
+            margin: 20px 0;
+        }
+
+        .back a {
+            color: white;
+            transition: 0.1s ease-in-out;
+        }
+
+        .back a:hover {
+            text-shadow: 0 0 10px white;
+            text-decoration: none;
+        }
+
+        .nav {
+            margin-bottom: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            transition: 0.1s ease-in-out;
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 0 10px white;
+            text-decoration: none;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.233);
+            color: white;
+            border: 1px solid white;
+            margin-bottom: 20px;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+            width: 30%;
+            position: relative;
+        }
+
+        .card:hover {
+            background-color: rgba(255, 255, 255, 0.336);
+            transform: scale(0.99);
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .btn-primary {
+            background-color: rgb(82, 82, 82);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: black;
+        }
+
+        hr {
+            background-color: white;
+        }
+
+        .card button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div class="back">
+    <a href="/mainpage">Назад</a>
+</div>
+
+<div class="wrapper">
+    <h1>Полученные обмены</h1>
+    <hr>
+    <div th:each="trade : ${receivedTrades}" class="card">
+        <form th:action="@{/received_trade}" method="get">
+            <input type="hidden" name="tradeChainId" th:value="${trade.id}"/>
+            <button type="submit"></button>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${trade.sender.username}">Sender</h5>
+                <p class="card-text" th:text="${trade.sender.email}">Sender's Email</p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

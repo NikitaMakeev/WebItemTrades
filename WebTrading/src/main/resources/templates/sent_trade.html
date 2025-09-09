@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sent Trade</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .card {
+            background-color: #656565;
+            border: 1px solid white;
+        }
+        .card-img {
+            width: 150px;
+            margin: 0 auto;
+        }
+        .card-title {
+            text-align: center;
+        }
+
+        .container-fluid {
+            width: 70%;
+        }
+        .card-text {
+            text-align: center;
+        }
+        .trade-card-title {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .trade-card-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .trade-button {
+            margin-top: 10px;
+        }
+
+        .back {
+            text-decoration: none;
+            font-size: 2em;
+            padding-left: 10%;
+
+        }
+
+        .back a {
+            color: white;
+            transition: 0.1s ease-in-out;
+        }
+
+        .back a:hover {
+            text-shadow: 0 0 10px white;
+            text-decoration: none;
+        }
+
+        hr {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="back">
+    <a href="/mainpage">Назад</a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="trade-card-title">Your Items</h2>
+            <hr>
+            <div class="card-deck">
+                <!-- Display sender's items here -->
+                <div th:each="item : ${senderItems}" class="card">
+                    <div class="card-body trade-card-body">
+                        <img class="card-img" th:src="@{/images/{imageName}(imageName=${item.imageName})}" alt="Product Image"/>
+                        <h5 class="card-title" th:text="${item.name}"></h5>
+                        <p class="card-text" th:text="${item.price}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="trade-card-title">Receiver's Items</h2>
+            <hr>
+            <div class="card-deck">
+                <!-- Display receiver's items here -->
+                <div th:each="item : ${receiverItems}" class="card">
+                    <div class="card-body trade-card-body">
+                        <img class="card-img" th:src="@{/images/{imageName}(imageName=${item.imageName})}" alt="Product Image"/>
+                        <h5 class="card-title" th:text="${item.name}"></h5>
+                        <p class="card-text" th:text="${item.price}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- Display trades -->
+    <div th:each="trade : ${trades}">
+        <div class="col-md-12">
+            <div>
+                <div class="card-body trade-card-body">
+                    <form th:action="@{/cancel_trade}" method="post">
+                        <input type="hidden" name="tradeId" th:value="${trade.id}"/>
+                        <button type="submit" class="btn btn-danger trade-button">Cancel offer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

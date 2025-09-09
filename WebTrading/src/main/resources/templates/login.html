@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="p-8">
+<div class="max-w-md mx-auto rounded-lg shadow-md overflow-hidden">
+    <div class="p-4 bg-gray-900">
+        <h1 class="text-2xl font-semibold text-center">Log-in</h1>
+    </div>
+    <form class="p-6 bg-gray-800" th:action="@{/login2}" method="post">
+        <div class="space-y-4">
+            <div class="p-2 rounded">
+                <input type="text" name="username" required placeholder="Username"
+                       class="input input-bordered w-full py-2 px-3 placeholder-gray-600 bg-gray-300 text-black" />
+            </div>
+            <div class="p-2 rounded">
+                <input type="password" name="password" placeholder="Password"
+                       class="input input-bordered w-full py-2 px-3 placeholder-gray-600 bg-gray-300 text-black" />
+            </div>
+            <div class="flex justify-center mt-4">
+                <button type="submit"
+                        class="btn btn-primary w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow">
+                    Login
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</html>
+

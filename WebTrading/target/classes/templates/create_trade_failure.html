@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trade Creation Failure</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .error-message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .try-again-button {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .try-again-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+<div class="error-message">
+    <p th:text="${errorMessage}">Something went wrong!</p>
+</div>
+<a href="/create_trade" class="try-again-button">Try again</a>
+</body>
+</html>
